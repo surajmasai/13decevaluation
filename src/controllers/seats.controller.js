@@ -27,9 +27,9 @@ router.post("/", async (req, res) => {
 })
 
 
-router.get('/seats', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const seat = await Seats.find().populate(shows_id).lean().exec();
+        const seat = await Seats.find().populate("shows_id").lean().exec();
 
         return res.status(200).json({ seat });
     }
@@ -40,6 +40,8 @@ router.get('/seats', async (req, res) => {
 })
 
 
-router.post("/seat", async (req, res) => { })
+router.post("/seat", async (req, res) => {
+
+})
 
 module.exports = router;
