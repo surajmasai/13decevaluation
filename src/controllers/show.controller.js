@@ -27,9 +27,41 @@ router.post("/", async (req, res) => {
     }
 })
 router.get('/', async (req, res) => {
+    try {
+
+        let shows;
+        const movie_id = req.query.movie_id;
+
+        if (movie_id) {
+            shows = await Show.find({ 'movie_id': movie_id });
+        } else {
+            shows = await Show.find().lean().exec();
+        }
+
+        // .populate("movie_id").lean().exec()
+
+        res.send({ shows })
+
+    }
+    catch (e) {
+        return res.status(500).json({ status: "failed", message: e.message });
+    }
 
 
+})
 
+router.get("/nearest", async (req, res) => {
+    try {
+
+        const show = await Show.find({ movie: { $eq: "hello" } }).lean().exec()
+
+        return res.status(200).send({ show })
+
+    }
+    catch (e) {
+        return res.status(500).json({ status: "failed", message: e.message });
+
+    }
 })
 
 module.exports = router;

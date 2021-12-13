@@ -32,4 +32,13 @@ router.post("/", upload.single("poster_urls"), async (req, res) => {
     }
 });
 
+router.get("/movies", async (req, res) => {
+
+    const movie = await Movie.find({ actor: { $eq: "shayam" } }).lean().exec();
+
+
+    res.send({ movie });
+
+})
+
 module.exports = router;
